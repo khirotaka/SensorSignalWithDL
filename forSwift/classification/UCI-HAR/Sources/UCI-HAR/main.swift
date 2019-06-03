@@ -1,6 +1,10 @@
 import TensorFlow
 import Python
+import Foundation
 
-let foo = Tensor<Float>([1, 2, 3, 4, 5])
-print(foo)
-print(foo.makeNumpyArray())
+print(x_train.shape)
+print(y_train.shape)
+
+print("-----------")
+print(x_test.values.shape)
+
