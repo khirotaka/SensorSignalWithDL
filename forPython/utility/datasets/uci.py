@@ -1,6 +1,6 @@
 import os
-import requests
 import zipfile
+import requests
 import tqdm
 import numpy as np
 import pandas as pd
@@ -13,8 +13,7 @@ def fetch_har(extract=True, url=None):
     :param url: String, for debug
     :return:
     """
-    home_dir = os.environ["HOME"]
-    save_dir = home_dir + "/.SensorSignalDatasets/"
+    save_dir = os.environ["HOME"] + "/.SensorSignalDatasets/"
 
     if not url:
         url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip"
@@ -59,27 +58,47 @@ def __load_group(filenames):
     return loaded
 
 
-def load_har():
-    save_dir = os.environ["HOME"] + "/.SensorSignalDatasets/UCI HAR Dataset/"
-
-    if not os.path.isdir(save_dir):
-        fetch_har()
-
-    x_train = __load_file(save_dir + "train/X_train.txt")
-    y_train = __load_file(save_dir + "train/y_train.txt")
-
-    x_test = __load_file(save_dir + "test/X_test.txt")
-    y_test = __load_file(save_dir + "test/y_test.txt")
-
-    return (x_train, y_train), (x_test, y_test)
-
-
-def load_raw_har():
-    save_dir = os.environ["HOME"] + "/.SensorSignalDatasets/UCI HAR Dataset/"
+def __loaded_per_types(dirpath):
+    types = ["train", "test"]
     path_to_raw = "Inertial Signals/"
 
+    def load_raw_data(file_type):
+        datasets = [
+            "total_acc_x_" + file_type + ".txt", "total_acc_y_" + file_type + ".txt", "total_acc_z_" + file_type+".txt",
+            "body_acc_x_" + file_type + ".txt", "body_acc_y_" + file_type + ".txt", "body_acc_z_" + file_type+".txt",
+            "body_gyro_x_" + file_type + ".txt", "body_gyro_y_" + file_type + ".txt", "body_gyro_z_" + file_type+".txt"
+        ]
+
+        tmp = [dirpath + file_type + "/" + path_to_raw + i for i in datasets]
+
+        X = __load_group(tmp)
+        return X
+
+    raw_datasets = []
+    for mode in types:
+        data = load_raw_data(mode)
+        target = __load_file(dirpath + mode + "/y_" + mode + ".txt")
+
+        raw_datasets.append((data, target))
+
+    return raw_datasets[0], raw_datasets[1]
+
+
+def load_har(raw=False):
+
+    save_dir = os.environ["HOME"] + "/.SensorSignalDatasets/UCI HAR Dataset/"
+
     if not os.path.isdir(save_dir):
         fetch_har()
 
+    if raw:
+        (x_train, y_train), (x_test, y_test) = __loaded_per_types(save_dir)
 
+    else:
+        x_train = __load_file(save_dir + "train/X_train.txt")
+        y_train = __load_file(save_dir + "train/y_train.txt")
 
+        x_test = __load_file(save_dir + "test/X_test.txt")
+        y_test = __load_file(save_dir + "test/y_test.txt")
+
+    return (x_train, y_train), (x_test, y_test)
