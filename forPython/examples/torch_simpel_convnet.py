@@ -2,9 +2,7 @@ import torch
 import numpy as np
 from torch import nn
 from torch import optim
-from sklearn.metrics import accuracy_score
-from forPython.utility.trainer import TorchBase
-
+from forPython.utility.trainer import TorchSimpleTrainer
 from torch.utils.data import TensorDataset, DataLoader
 
 from forPython.models.torch.cnn import SimpleCNN
@@ -39,6 +37,6 @@ test_ds = TensorDataset(x_test, y_test)
 train_loader = DataLoader(train_ds, batch_size, False)
 test_loader = DataLoader(test_ds, batch_size, False)
 
-clf = TorchBase(model, loss_func, optimizer)
+clf = TorchSimpleTrainer(model, loss_func, optimizer)
 clf.fit(train_loader, epochs)
 clf.evaluate(test_loader)
