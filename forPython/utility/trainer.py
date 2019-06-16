@@ -8,20 +8,24 @@ from torch.optim.optimizer import Optimizer as BaseOptimizer
 
 
 class TorchBase:
+    model: torch.nn.Module
+    optimizer: BaseOptimizer
+    loss_func: torch.nn.modules.loss._Loss
+
     def __init__(self, model, loss_func, optimizer):
         """
         :type model: torch.nn.Module
         :type loss_func: torch.nn.modules.loss._Loss
         :type optimizer: BaseOptimizer
         """
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = model.to(self.device)
-        self.loss_func = loss_func
         self.optimizer = optimizer
+        self.loss_func = loss_func
 
     def fit(self, dataloader, epochs=1):
         """
-
+        :type epochs: Int
         :type dataloader: BaseDataLoader
         """
         self.model.train()
@@ -49,6 +53,9 @@ class TorchBase:
         sys.stdout.write("\n")
 
     def evaluate(self, dataloader):
+        """
+        :type dataloader: BaseDataLoader
+        """
         self.model.eval()
 
         running_loss = torch.tensor(0.0).float()
@@ -97,3 +104,12 @@ class TorchBase:
         percentage = torch.softmax(outputs, 1)
 
         return percentage
+
+    def save_weight(self, path):
+        torch.save(self.model.state_dict(), path)
+
+    def load_weight(self, path):
+        self.model.load_state_dict(torch.load(path))
+
+
+TorchSimpleTrainer = TorchBase
