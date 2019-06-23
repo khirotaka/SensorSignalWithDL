@@ -31,4 +31,4 @@ data, targets = load_har(raw_data=True)
 
 ```
 
-**(Sensor Dataset Collections)[https://github.com/KawashimaHirotaka/SensorDatasetCollection]** のリポシティはこちら
+**Sensor Dataset Collections** のリポシティは[こちら](https://github.com/KawashimaHirotaka/SensorDatasetCollection)
