@@ -1,0 +1,10 @@
+
+.idea/misc.xml
+.idea/modules.xml
+.idea/other.xml
+.idea/SensorSignalWithDL.iml
+.idea/vcs.xml
+.idea/workspace.xml
+forPython/utility/__pycache__/__init__.cpython-36.pyc
+forPython/utility/datasets/__pycache__/__init__.cpython-36.pyc
+forPython/utility/datasets/__pycache__/uci.cpython-36.pyc
