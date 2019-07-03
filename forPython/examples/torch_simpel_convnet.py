@@ -2,11 +2,11 @@ import torch
 import numpy as np
 from torch import nn
 from torch import optim
-from forPython.utility.trainer import TorchSimpleTrainer
 from torch.utils.data import TensorDataset, DataLoader
 
-from forPython.models.torch.cnn import SimpleCNN
 from forPython.datasets.uci import load_mhealth
+from forPython.models.torch.cnn import SimpleCNN
+from forPython.utility.trainer import TorchSimpleTrainer
 
 np.random.seed(0)
 torch.random.manual_seed(0)
