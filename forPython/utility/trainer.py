@@ -1,16 +1,11 @@
 import sys
-import copy
 
 import torch
 from torch import nn
-from torch.utils.data import DataLoader as BaseDataLoader
-from torch.optim.optimizer import Optimizer as BaseOptimizer
 
 
 class TorchBase:
     model: torch.nn.Module
-    optimizer: BaseOptimizer
-    loss_func: torch.nn.modules.loss._Loss
 
     def __init__(self, model, loss_func, optimizer):
         """
