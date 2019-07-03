@@ -2,14 +2,14 @@
 センサーで関連(活動分類とか)のサンプルコードを管理する。
 ここでの成果物
 
-- Dataset Collections ... 🛠
-- Dataset Separator ... 🛠
+  - Dataset Collections ... 🛠
+  - Dataset Separator ... 🛠
 
 などは後々独立したものにする予定。
 
 ## System Requirements
-- Python 3.6.8
-- PyTorch 1.1
+  - Python 3.6.8
+  - PyTorch 1.1
 
 ## Sensor Dataset Collections
 
@@ -19,7 +19,6 @@
 
 
 `Sensor Dataset Collections` は次のようなインターフェースでデータの入手・利用ができるようにする。
-
 
 ```python
 from sdc.datasets.uci import load_har
